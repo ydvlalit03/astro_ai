@@ -1,7 +1,7 @@
 import os, google.generativeai as genai
 
 genai.configure(api_key="AIzaSyDSJyT8iZ_3UgPeY6m5z-gogJGUp_lkf9o")
-MODEL = "gemini-2.5-pro"
+MODEL = "gemini-2.5-flash"
     
 
 _prompt_template = (

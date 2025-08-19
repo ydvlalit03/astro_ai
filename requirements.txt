@@ -9,7 +9,13 @@ timezonefinder
 pytz
 dateparser
 
+# FastAPI dependencies for modern web API
+fastapi
+uvicorn[standard]
 
 sqlalchemy
 sqlite-utils
 requests
+
+# Kerykeion for astrology calculations (if not already included via other deps)
+kerykeion

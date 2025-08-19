@@ -4,33 +4,45 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 from backend.state import AstroState
 
-DB_URL = os.getenv("DATABASE_URL", "sqlite:///data/sqlite.db")
+# Get the project root directory (two levels up from this file)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DATA_DIR = os.path.join(PROJECT_ROOT, "data")
+
+# Ensure data directory exists
+os.makedirs(DATA_DIR, exist_ok=True)
+
+# Use absolute path for database
+DB_PATH = os.path.join(DATA_DIR, "sqlite.db")
+DB_URL = os.getenv("DATABASE_URL", f"sqlite:///{DB_PATH}")
 engine = create_engine(DB_URL, echo=False, future=True)
 
-# Init tables (simple schema)
-with engine.begin() as conn:
-    conn.exec_driver_sql(
-        """
-        CREATE TABLE IF NOT EXISTS readings (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          name TEXT,
-          dob TEXT,
-          time TEXT,
-          place TEXT,
-          lat REAL,
-          lon REAL,
-          timezone TEXT,
-          utc_time TEXT,
-          chart_json TEXT,
-          horoscope TEXT,
-          interpretation TEXT,
-          created_at TEXT
-        );
-        """
-    )
+# Init tables (simple schema) - moved to a function to avoid immediate execution
+def init_database():
+    with engine.begin() as conn:
+        conn.exec_driver_sql(
+            """
+            CREATE TABLE IF NOT EXISTS readings (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              name TEXT,
+              dob TEXT,
+              time TEXT,
+              place TEXT,
+              lat REAL,
+              lon REAL,
+              timezone TEXT,
+              utc_time TEXT,
+              chart_json TEXT,
+              horoscope TEXT,
+              interpretation TEXT,
+              created_at TEXT
+            );
+            """
+        )
 
 def database_node(state: AstroState) -> AstroState:
     try:
+        # Initialize database tables if they don't exist
+        init_database()
         lat, lon = (state.get("coordinates") or (None, None))
         utc_time_iso = state.get("utc_time").isoformat() if state.get("utc_time") else None
         chart_str = str(state.get("chart")) if state.get("chart") else None
