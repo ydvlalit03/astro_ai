@@ -167,31 +167,6 @@ astro_ai/
 
 This project is for educational and personal use.
 
-## 🆘 Troubleshooting
-
-### Common Issues
-
-1. **API Key Errors**: Make sure your Gemini API key is valid and has sufficient quota
-2. **Port Conflicts**: Ensure ports 3000 (frontend) and 8000 (backend) are available
-3. **CORS Issues**: The backend is configured for localhost development
-4. **Database Errors**: Check that the `data/` and `cache/` directories are writable
-
-### Development Tips
-
-- Use browser dev tools to check API requests
-- Check backend logs for detailed error messages
-- The app includes debug logging for troubleshooting
-- Both frontend and backend support hot reload during development
-
-## 📺 Demo
-
-Create a 2-5 minute demo video showing:
-1. Starting both backend and frontend servers
-2. Generating a birth chart with sample data
-3. Viewing the results (chart, horoscope, interpretation)
-4. Asking questions in the Q&A interface
-5. Showing how questions become context-aware after generating a chart
-
 ---
 
 **Built with ❤️ using modern web technologies and AI**
