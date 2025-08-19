@@ -1,0 +1,15 @@
+python-dotenv
+pydantic
+langgraph
+langchain
+streamlit
+google-generativeai
+geopy
+timezonefinder
+pytz
+dateparser
+
+
+sqlalchemy
+sqlite-utils
+requests
